@@ -36,7 +36,9 @@ class Printer(object):
         buffer_data = []
         for line in lines:
             if len(line.strip()) > 0:
-                buffer_data.append(bytes(line, encoding='utf-8'))
+                # Precisei alterar essa linha, incluindo um \n para corrigir uma atualização mal
+                # feita pelo ifood...
+                buffer_data.append(bytes(line, encoding='utf-8') + bytes(commands['feed']))
             else:
                 buffer_data.extend(bytes(command) for command in commands['feed'])
         return buffer_data
@@ -44,12 +46,11 @@ class Printer(object):
     async def get_printer_buffer(self, printables, commands):
         buffer_data = []
         buffer_data.extend(bytes(command) for command in commands['init'])
-        printable_buffers = await asyncio.gather(*[self.get_printable_buffer(printable, commands) for printable in printables])
+        printable_buffers = await asyncio.gather(
+            *[self.get_printable_buffer(printable, commands) for printable in printables])
         flat_buffers = [buffer for sublist in printable_buffers for buffer in sublist]
         buffer_data.extend(flat_buffers)
-        buffer_data.extend(bytes(command) for command in commands['feed'])
-        buffer_data.extend(bytes(command) for command in commands['feed'])
-        buffer_data.extend(bytes(command) for command in commands['feed'])
+        buffer_data.extend(bytes(command) for command in commands['feed'] * 3)
         buffer_data.extend(bytes(command) for command in commands['cut'])
         return b''.join(buffer_data) + (bytes([10]) * 4)
 
