@@ -15,6 +15,43 @@ bem como o app de impressão oficial, diante disso resolvi implementar algo de f
 git clone https://github.com/cleitonleonel/Impressora_GP_PyFood.git
 ```
 
+## Instalando CUPS:
+
+É sempre uma boa prática atualizar os repositórios antes de instalar novos pacotes.
+
+1. **Atualize o sistema**:
+   ```bash
+   sudo apt update
+   sudo apt upgrade
+   ```
+
+2. **Instale o CUPS**:
+   Execute o seguinte comando para instalar o CUPS.
+
+   ```bash
+   sudo apt install cups build-essential cmake libcups2-dev libcupsimage2-dev system-config-printer -y
+   ```
+
+3. **Inicie o serviço do CUPS**:
+   Após a instalação, inicie o serviço CUPS.
+
+   ```bash
+   sudo systemctl start cups
+   ```
+
+4. **Ative o CUPS para iniciar no boot**:
+   Para garantir que o CUPS inicie automaticamente em cada inicialização do sistema, use o seguinte comando:
+
+   ```bash
+   sudo systemctl enable cups
+   ```
+
+5. **Acesse a interface da web do CUPS**:
+   Abra um navegador e acesse a interface web do CUPS para adicionar e gerenciar impressoras. Digite o seguinte URL:
+
+   ```
+   http://localhost:631
+
 ## Uso:
 ```shell
 cd Impressora_GP_PyFood
