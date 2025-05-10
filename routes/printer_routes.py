@@ -67,7 +67,7 @@ def print_document():
                 'payload': invoice,
                 'config': {
                     "columns": data['printerConfig']['numberOfColumns'],
-                    "cpi": data['printerConfig']['fontSize']
+                    "cpi": str(data['printerConfig']['fontSize'])
                 }
             }])
             print("Successfully printed")
