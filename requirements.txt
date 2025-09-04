@@ -1,13 +1,11 @@
-blinker==1.6.2
-click==8.1.3
-Flask==2.3.2
-Flask-Cors==3.0.10
-importlib-metadata==6.6.0
-itsdangerous==2.1.2
-Jinja2==3.1.2
-MarkupSafe==2.1.2
-pycups==2.0.1
-six==1.16.0
-Unidecode==1.3.6
-Werkzeug==2.3.4
-zipp==3.15.0
+blinker==1.9.0
+click==8.2.1
+Flask==3.1.2
+flask-cors==6.0.1
+itsdangerous==2.2.0
+Jinja2==3.1.6
+MarkupSafe==3.0.2
+pycups @ git+https://github.com/OpenPrinting/pycups.git@e5acbd887ea8379bb0a8424559428b62b0e8e6c8
+setuptools==80.9.0
+Unidecode==1.4.0
+Werkzeug==3.1.3

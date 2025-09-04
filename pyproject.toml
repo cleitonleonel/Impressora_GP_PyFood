@@ -1,0 +1,23 @@
+[project]
+name = "impressora-gp-pyfood"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "cleiton",email = "cleiton.leonel@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "flask (>=3.1.2,<4.0.0)",
+    "setuptools (==80.9.0)",
+    "pycups @ git+https://github.com/OpenPrinting/pycups.git",
+    "unidecode (>=1.4.0,<2.0.0)",
+    "flask-cors (>=6.0.1,<7.0.0)",
+]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

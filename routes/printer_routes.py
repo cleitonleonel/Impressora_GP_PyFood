@@ -42,7 +42,6 @@ def print_document():
     invoice = data['invoice']
     printer_manufacturer = data['printerConfig']['printerManufacturer']
     printer_name = data['printerConfig']['printer']
-
     if printer_name == "PDF":
         try:
             command = f'echo "{invoice}" | lpr -P {printer_name}'
@@ -66,8 +65,8 @@ def print_document():
                 'type': 'TEXT',
                 'payload': invoice,
                 'config': {
-                    "columns": str(data['printerConfig']['numberOfColumns']),
-                    "cpi": str(data['printerConfig']['fontSize'])
+                    "columns": str(data['printerConfig'].get('numberOfColumns', 48)),
+                    "cpi": str(data['printerConfig'].get('fontSize', 8))
                 }
             }])
             print("Successfully printed")
@@ -76,4 +75,5 @@ def print_document():
             print("For unknown reason it was not possible to print.")
             return jsonify(
                 message="For unknown reason it was not possible to print.",
-                version=version), 500
+                version=version
+            ), 500

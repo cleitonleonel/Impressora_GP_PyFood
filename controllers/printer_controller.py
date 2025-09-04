@@ -36,8 +36,6 @@ class Printer(object):
         buffer_data = []
         for line in lines:
             if len(line.strip()) > 0:
-                # Precisei alterar essa linha, incluindo um \n para corrigir uma atualização mal
-                # feita pelo ifood...
                 buffer_data.append(bytes(line, encoding='utf-8') + bytes(commands['feed']))
             else:
                 buffer_data.extend(bytes(command) for command in commands['feed'])
@@ -69,9 +67,11 @@ class Printer(object):
             'number-up': '1',
         }
         job = self.conn.printFile(
-            self.printer_name, temp_file.name,
+            self.printer_name,
+            temp_file.name,
             'Impressão GP iFood',
-            print_options)
+            print_options
+        )
         return job
 
     def decode_printables(self, printables):
