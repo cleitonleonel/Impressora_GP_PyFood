@@ -38,18 +38,18 @@ class Printer(object):
             if len(line.strip()) > 0:
                 buffer_data.append(bytes(line, encoding='utf-8') + bytes(commands['feed']))
             else:
-                buffer_data.extend(bytes(command) for command in commands['feed'])
+                buffer_data.append(bytes(commands['feed']))
         return buffer_data
 
     async def get_printer_buffer(self, printables, commands):
         buffer_data = []
-        buffer_data.extend(bytes(command) for command in commands['init'])
+        buffer_data.append(bytes(commands['init']))
         printable_buffers = await asyncio.gather(
             *[self.get_printable_buffer(printable, commands) for printable in printables])
         flat_buffers = [buffer for sublist in printable_buffers for buffer in sublist]
         buffer_data.extend(flat_buffers)
-        buffer_data.extend(bytes(command) for command in commands['feed'] * 3)
-        buffer_data.extend(bytes(command) for command in commands['cut'])
+        buffer_data.append(bytes(commands['feed'] * 3))
+        buffer_data.append(bytes(commands['cut']))
         return b''.join(buffer_data) + (bytes([10]) * 4)
 
     def print(self, printables):
@@ -65,6 +65,7 @@ class Printer(object):
             'cpi': decoded[0].get('config')['cpi'],
             'lpi': '6',
             'number-up': '1',
+            'raw': 'True'
         }
         job = self.conn.printFile(
             self.printer_name,
